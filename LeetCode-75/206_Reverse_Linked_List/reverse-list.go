@@ -7,7 +7,7 @@ func main() {
 	for i := 1; i <= 5; i++ {
 		head = insert(head, i)
 	}
-	Show(middleNode(head))
+	Show(reverseList(head))
 }
 
 func Show(l *ListNode) {
@@ -37,26 +37,16 @@ type ListNode struct {
 	Next *ListNode
 }
 
-func middleNode(head *ListNode) *ListNode {
+func reverseList(head *ListNode) *ListNode {
+	var prev *ListNode
+	current, next := head, head
 
-	fast, slow := head, head
-
-	for fast != nil {
-
-		fast = fast.Next
-
-		if fast != nil {
-			fast = fast.Next
-
-		} else {
-			// fast has reached the end of linked list
-			// slow is on the middle point now
-			break
-		}
-
-		slow = slow.Next
+	for current != nil {
+		next = current.Next
+		current.Next = prev
+		prev = current
+		current = next
 	}
 
-	return slow
-
+	return prev
 }
